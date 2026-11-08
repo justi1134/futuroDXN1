@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7fb" />
+    <meta
+      name="description"
+      content="Formulario de contacto para enviar una consulta de forma sencilla."
+    />
+    <title>Contacto | Hablemos</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="contact-card" aria-labelledby="page-title">
+        <aside class="intro-panel">
+          <a class="wordmark" href="#" aria-label="Inicio"
+            >estudio<span>.</span></a
+          >
+          <div class="intro-copy">
+            <p class="eyebrow">ESTAMOS PARA AYUDARTE</p>
+            <h1 id="page-title">Hablemos de lo que necesitas.</h1>
+            <p class="intro-description">
+              Cuéntanos un poco sobre ti y tu consulta. Revisaremos tus datos
+              antes de continuar para que podamos responderte correctamente.
+            </p>
+          </div>
+          <div class="privacy-note">
+            <span class="privacy-icon" aria-hidden="true">✓</span>
+            <p>
+              <strong>Tus datos, con cuidado.</strong><br />Usaremos tu
+              información solo para responder a tu mensaje.
+            </p>
+          </div>
+          <span class="decor decor-one" aria-hidden="true"></span>
+          <span class="decor decor-two" aria-hidden="true"></span>
+        </aside>
+
+        <!--
+          ===== INICIO DEL BLOQUE DEL FORMULARIO DE CONTACTO =====
+          Este bloque contiene la estructura HTML necesaria para el formulario.
+          Sus estilos están en style.css y su validación está en contacto.js.
+
+          PILARES DEL FORMULARIO:
+          1. Datos de contacto claros y accesibles.
+          2. Prevención y corrección de errores de escritura en el correo.
+          3. Teléfono opcional con indicaciones de formato.
+          4. Consulta con límites de caracteres y contador.
+          5. Consentimiento explícito.
+          6. Validación y mensajes de estado accesibles.
+        -->
+        <div class="form-panel">
+          <div class="form-heading">
+            <p class="eyebrow">FORMULARIO DE CONTACTO</p>
+            <h2>Déjanos tus datos</h2>
+            <p>
+              Los campos marcados con <span aria-hidden="true">*</span> son
+              obligatorios.
+            </p>
+          </div>
+
+          <!-- Pilar 1: Datos de contacto esenciales con etiquetas asociadas a cada campo. -->
+          <form id="contact-form" novalidate>
+            <div class="field">
+              <label for="name"
+                >Nombre completo <span aria-hidden="true">*</span></label
+              >
+              <div class="input-wrap">
+                <span class="input-icon" aria-hidden="true">♙</span>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Ej. Ana García"
+                  autocomplete="name"
+                  autocapitalize="words"
+                  minlength="2"
+                  maxlength="80"
+                  required
+                  aria-describedby="name-hint name-error"
+                />
+              </div>
+              <small id="name-hint" class="field-hint"
+                >Escribe tu nombre y apellido.</small
+              >
+              <small
+                id="name-error"
+                class="field-error"
+                aria-live="polite"
+              ></small>
+            </div>
+
+            <div class="field">
+              <!-- Pilar 2: Prevención de errores en el correo con sugerencias de corrección. -->
+              <label for="email"
+                >Correo electrónico <span aria-hidden="true">*</span></label
+              >
+              <div class="input-wrap">
+                <span class="input-icon" aria-hidden="true">@</span>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="tu@correo.com"
+                  autocomplete="email"
+                  autocapitalize="none"
+                  spellcheck="false"
+                  maxlength="254"
+                  required
+                  aria-describedby="email-hint email-error"
+                />
+              </div>
+              <small id="email-hint" class="field-hint"
+                >Revisa que esté bien escrito; allí recibirás nuestra
+                respuesta.</small
+              >
+              <small
+                id="email-error"
+                class="field-error"
+                aria-live="polite"
+              ></small>
+              <button
+                id="email-suggestion"
+                class="suggestion"
+                type="button"
+                hidden
+              ></button>
+            </div>
+
+            <div class="field">
+              <!-- Pilar 3: Teléfono opcional con formato internacional y ayuda contextual. -->
+              <label for="phone"
+                >Teléfono <span class="optional">(opcional)</span></label
+              >
+              <div class="input-wrap">
+                <span class="input-icon" aria-hidden="true">＋</span>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="+54 11 1234 5678"
+                  autocomplete="tel"
+                  inputmode="tel"
+                  maxlength="24"
+                  aria-describedby="phone-hint phone-error"
+                />
+              </div>
+              <small id="phone-hint" class="field-hint"
+                >Incluye el código de país para facilitar el contacto.</small
+              >
+              <small
+                id="phone-error"
+                class="field-error"
+                aria-live="polite"
+              ></small>
+            </div>
+
+            <div class="field">
+              <!-- Pilar 4: Consulta con longitud mínima, máxima y contador de caracteres. -->
+              <label for="message"
+                >¿En qué podemos ayudarte?
+                <span aria-hidden="true">*</span></label
+              >
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="Escribe tu consulta aquí..."
+                minlength="10"
+                maxlength="1200"
+                required
+                aria-describedby="message-hint message-error"
+              ></textarea>
+              <div class="textarea-meta">
+                <small id="message-hint" class="field-hint"
+                  >Con al menos 10 caracteres podremos orientarte mejor.</small
+                >
+                <small id="character-count" aria-live="polite">0 / 1200</small>
+              </div>
+              <small
+                id="message-error"
+                class="field-error"
+                aria-live="polite"
+              ></small>
+            </div>
+
+            <!-- Pilar 5: Consentimiento explícito y accesible antes de continuar. -->
+            <label class="consent" for="consent">
+              <input
+                id="consent"
+                name="consent"
+                type="checkbox"
+                required
+                aria-describedby="consent-error"
+              />
+              <span
+                >Autorizo que contacten conmigo para responder esta consulta.
+                <span aria-hidden="true">*</span></span
+              >
+            </label>
+            <small
+              id="consent-error"
+              class="field-error consent-error"
+              aria-live="polite"
+            ></small>
+
+            <!-- Pilar 6: Validación y estado accesible; el formulario aún no transmite datos. -->
+            <button class="submit-button" type="submit">
+              <span>Revisar y continuar</span>
+              <span aria-hidden="true">→</span>
+            </button>
+            <p
+              id="form-status"
+              class="form-status"
+              role="status"
+              aria-live="polite"
+            ></p>
+            <p class="form-footnote">
+              Tus datos no se enviarán hasta conectar este formulario a un
+              servicio de recepción.
+            </p>
+          </form>
+        </div>
+        <!-- ===== FIN DEL BLOQUE DEL FORMULARIO DE CONTACTO ===== -->
+      </section>
+      <footer class="page-footer">
+        Una conversación puede ser el comienzo de algo bueno.
+      </footer>
+    </main>
+
+    <script src="contacto.js" defer></script>
+  </body>
+</html>
