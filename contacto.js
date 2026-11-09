@@ -55,10 +55,12 @@ function validateField(field) {
 // Pilar 3: Prevención de errores: propone dominios comunes cuando parecen mal escritos.
 function suggestEmailCorrection() {
   const [localPart, domain] = emailInput.value.trim().toLowerCase().split("@");
+  //sella secuecicias de operciones encadenamineto de metodos
   const correctedDomain = commonDomainCorrections[domain];
 
   if (localPart && correctedDomain) {
     emailSuggestion.textContent = `¿Quisiste decir ${localPart}@${correctedDomain}?`;
+    // interpolacion de cadnas n un if
     emailSuggestion.hidden = false;
   } else {
     emailSuggestion.hidden = true;
@@ -72,13 +74,17 @@ fields.forEach((id) => {
   field.addEventListener("input", () => {
     if (field.getAttribute("aria-invalid") === "true") validateField(field);
     formStatus.textContent = "";
+    formStatus.classList.remove("is-error");
   });
 });
 
 emailInput.addEventListener("input", suggestEmailCorrection);
 emailSuggestion.addEventListener("click", () => {
   const [localPart] = emailInput.value.trim().toLowerCase().split("@");
-  const correctedDomain = commonDomainCorrections[emailInput.value.trim().toLowerCase().split("@")[1]];
+  const correctedDomain =
+    commonDomainCorrections[
+      emailInput.value.trim().toLowerCase().split("@")[1]
+    ];
   emailInput.value = `${localPart}@${correctedDomain}`;
   emailSuggestion.hidden = true;
   validateField(emailInput);
@@ -89,8 +95,8 @@ messageInput.addEventListener("input", () => {
   characterCount.textContent = `${messageInput.value.length} / 1200`;
 });
 
-// Pilar 5: Envío: solo permite continuar si todo es válido; no transmite datos a un servidor.
-form.addEventListener("submit", (event) => {
+// Pilar 5: Envío al servidor con fetch; el navegador nunca recibe credenciales de Gmail.
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const valid = fields
     .map((id) => validateField(document.getElementById(id)))
@@ -103,7 +109,37 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
-  formStatus.textContent =
-    "¡Todo listo! Los datos están validados. Para recibirlos, conecta el formulario a un servicio de envío.";
+  const submitButton = form.querySelector('button[type="submit"]');
+  const payload = Object.fromEntries(new FormData(form));
+  payload.consent = document.getElementById("consent").checked;
+
+  submitButton.disabled = true;
   formStatus.classList.remove("is-error");
+  formStatus.textContent = "Enviando tu consulta...";
+
+  try {
+    const response = await fetch("http://localhost:3000/api/contact", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || "No se pudo enviar la consulta.");
+    }
+
+    formStatus.textContent = result.message;
+    form.reset();
+    characterCount.textContent = "0 / 1200";
+    emailSuggestion.hidden = true;
+  } catch (error) {
+    formStatus.textContent =
+      error instanceof Error
+        ? error.message
+        : "No se pudo conectar con el servidor. Intenta de nuevo.";
+    formStatus.classList.add("is-error");
+  } finally {
+    submitButton.disabled = false;
+  }
 });
