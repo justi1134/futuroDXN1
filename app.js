@@ -87,6 +87,10 @@ app.post("/api/contact", async (req, res) => {
 
   return res.status(200).json({
     message: "¡Gracias! Tu consulta fue recibida correctamente.",
+    contact: {
+      message: contact.message,
+      userAgent: contact.userAgent,
+    },
   });
 });
 
