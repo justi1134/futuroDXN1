@@ -8,9 +8,11 @@ Ejemplo básico de comunicación entre el navegador y un servidor Node.js.
 2. Inicia el servidor con `npm start`.
 3. Abre `http://localhost:3000`.
 
-Al enviar una consulta válida desde esa dirección, el nombre, correo y teléfono
-se guardan en `contactos.jsonl` (una línea JSON por contacto) y se confirma en
-la terminal donde ejecutaste `npm start`. No abras `miterminal.html`
+Al enviar una consulta válida desde esa dirección, el nombre, correo, teléfono,
+mensaje, consentimiento y la cabecera `User-Agent` se guardan juntos en
+`contactos.jsonl` (una línea JSON por contacto) y se confirma en la terminal
+donde ejecutaste `npm start`. `User-Agent` es información proporcionada por el
+cliente y no debe usarse como identificador confiable. No abras `miterminal.html`
 directamente como archivo: el formulario necesita conectarse al servidor.
 
 ## Pilares
