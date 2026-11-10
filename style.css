@@ -27,7 +27,11 @@ body {
   padding: 48px 20px 24px;
   background:
     radial-gradient(ellipse at 10% 12%, rgb(115 99 230 / 9%), transparent 32%),
-    radial-gradient(ellipse at 95% 85%, rgb(105 173 201 / 10%), transparent 30%),
+    radial-gradient(
+      ellipse at 95% 85%,
+      rgb(105 173 201 / 10%),
+      transparent 30%
+    ),
     #f3f5f9;
 }
 
@@ -64,7 +68,11 @@ textarea {
   justify-content: space-between;
   padding: 40px;
   background:
-    radial-gradient(ellipse at 100% 100%, rgb(155 148 255 / 27%), transparent 48%),
+    radial-gradient(
+      ellipse at 100% 100%,
+      rgb(155 148 255 / 27%),
+      transparent 48%
+    ),
     linear-gradient(145deg, #242c4b 0%, #33355f 54%, #4c4388 100%);
   color: #fff;
 }
@@ -542,5 +550,24 @@ textarea.has-error:focus {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .intro-panel,
+  .form-panel {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .textarea-meta {
+    flex-wrap: wrap;
   }
 }
