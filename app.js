@@ -31,7 +31,7 @@ app.get("/contacto.js", (req, res) => {
 // Recibe y valida los datos antes de mostrarlos en la terminal.
 app.post("/api/contact", async (req, res) => {
   const { name, email, phone, message, consent } = req.body || {};
-  const userAgent = req.get("User-Agent") || "";
+
   const cleanName = typeof name === "string" ? name.trim() : "";
   const cleanEmail = typeof email === "string" ? email.trim() : "";
   const cleanPhone = typeof phone === "string" ? phone.trim() : "";
@@ -64,8 +64,8 @@ app.post("/api/contact", async (req, res) => {
     email: cleanEmail,
     phone: cleanPhone,
     message: cleanMessage,
-    consent,
-    userAgent,
+    consent: consent,
+
     receivedAt: new Date().toISOString(),
   };
 
@@ -83,6 +83,7 @@ app.post("/api/contact", async (req, res) => {
     name: contact.name,
     email: contact.email,
     phone: contact.phone,
+    message: contact.message,
   });
 
   return res.status(200).json({
